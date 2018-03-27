@@ -15,9 +15,10 @@ public class ClientApplication {
 
     public static void main(String[] args) throws Exception {
         String url;
-        if (args.length == 1) {
+        if (args.length > 0) {
             url = "ws://" + args[0] + "/chat";
         } else {
+            System.err.println("connecting to localhost");
             url = URL;
         }
         Scanner scanner = new Scanner(System.in);
