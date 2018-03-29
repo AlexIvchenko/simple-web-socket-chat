@@ -15,7 +15,15 @@ public class UserChannelNotification {
     private Type type;
 
     public enum Type {
-        USER_CONNECTED, USER_DISCONNECTED
+        USER_CONNECTED, USER_DISCONNECTED, USER_SUBSCRIBED, USER_UNSUBSCRIBED
+    }
+
+    public static UserChannelNotification subscribed(String username) {
+        return new UserChannelNotification(username, Type.USER_SUBSCRIBED);
+    }
+
+    public static UserChannelNotification unsubscribed(String username) {
+        return new UserChannelNotification(username, Type.USER_UNSUBSCRIBED);
     }
 
     public static UserChannelNotification connected(String username) {

@@ -18,6 +18,7 @@ public class ChatController {
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
     public OutputMessage chat(@Payload InputMessage input, Principal principal) {
+        log.info("chat, message: {}", input);
         JwtAuthenticationToken auth = (JwtAuthenticationToken) principal;
         log.info(input.toString());
         OutputMessage output = new OutputMessage();

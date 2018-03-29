@@ -13,15 +13,21 @@ public class Notification {
     private Type type;
 
     public enum Type {
-        USER_CONNECTED, USER_DISCONNECTED
+        USER_CONNECTED, USER_DISCONNECTED, USER_SUBSCRIBED, USER_UNSUBSCRIBED
     }
 
     @Override
     public String toString() {
-        if (type == Type.USER_CONNECTED) {
-            return username + " connected";
-        } else {
-            return username + " disconnected";
+        switch (type) {
+            case USER_CONNECTED:
+                return username + " connected";
+            case USER_DISCONNECTED:
+                return username + " disconnected";
+            case USER_SUBSCRIBED:
+                return username + " subscribed";
+            case USER_UNSUBSCRIBED:
+                return username + "unsubscribed";
+            default: throw new RuntimeException();
         }
     }
 }

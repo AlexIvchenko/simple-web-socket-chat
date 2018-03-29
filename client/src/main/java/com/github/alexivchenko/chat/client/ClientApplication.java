@@ -37,11 +37,8 @@ public class ClientApplication {
         stompHeaders.add("username", name);
         stompHeaders.add("password", "pass");
         ListenableFuture<StompSession> future = stompClient.connect(url, new WebSocketHttpHeaders(), stompHeaders, new CustomStompSessionHandler());
-//        stompClient.connect(url, new WebSocketHttpHeaders(), stompHeaders, new NotificationHandler());
         StompSession session = future.get();
         session.subscribe("/topic/notifications", new NotificationHandler());
-//        User user = new User(name);
-//        session.send("/app/chat.users.add", user);
         while(true) {
             String line = scanner.nextLine();
             session.send("/app/chat", new Message(name, line));
