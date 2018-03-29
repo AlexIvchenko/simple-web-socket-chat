@@ -1,5 +1,6 @@
-package com.github.alexivchenko.chat.client;
+package com.github.alexivchenko.chat.client.handlers;
 
+import com.github.alexivchenko.chat.client.Message;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
@@ -25,6 +26,6 @@ public class CustomStompSessionHandler extends StompSessionHandlerAdapter {
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
         Message msg = (Message) payload;
-        System.out.println(msg.getFrom() + ": " + msg.getText());
+        System.out.println(msg.getSender() + ": " + msg.getText());
     }
 }

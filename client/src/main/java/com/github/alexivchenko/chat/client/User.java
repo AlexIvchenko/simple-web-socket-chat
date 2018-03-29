@@ -10,9 +10,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Message {
-    private String sender;
-    private String text;
+@AllArgsConstructor
+public class User {
+    private String username;
 }

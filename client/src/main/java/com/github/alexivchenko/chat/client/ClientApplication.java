@@ -1,9 +1,12 @@
 package com.github.alexivchenko.chat.client;
 
+import com.github.alexivchenko.chat.client.handlers.CustomStompSessionHandler;
+import com.github.alexivchenko.chat.client.handlers.NotificationHandler;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
-import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.web.socket.WebSocketHttpHeaders;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
@@ -30,11 +33,15 @@ public class ClientApplication {
         WebSocketStompClient stompClient = new WebSocketStompClient(client);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
-        StompSessionHandler sessionHandler = new CustomStompSessionHandler();
-        ListenableFuture<StompSession> future = stompClient.connect(url, sessionHandler);
-
+        StompHeaders stompHeaders = new StompHeaders();
+        stompHeaders.add("username", name);
+        stompHeaders.add("password", "pass");
+        ListenableFuture<StompSession> future = stompClient.connect(url, new WebSocketHttpHeaders(), stompHeaders, new CustomStompSessionHandler());
+//        stompClient.connect(url, new WebSocketHttpHeaders(), stompHeaders, new NotificationHandler());
         StompSession session = future.get();
-
+        session.subscribe("/topic/notifications", new NotificationHandler());
+//        User user = new User(name);
+//        session.send("/app/chat.users.add", user);
         while(true) {
             String line = scanner.nextLine();
             session.send("/app/chat", new Message(name, line));
