@@ -13,9 +13,4 @@ import lombok.ToString;
 public class OutputMessage {
     private String sender;
     private String text;
-    private Type type;
-
-    public enum Type {
-        CONNECT, DISCONNECT, CHAT
-    }
 }
