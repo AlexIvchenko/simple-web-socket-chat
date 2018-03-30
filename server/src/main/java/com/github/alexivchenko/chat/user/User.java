@@ -1,8 +1,7 @@
-package com.github.alexivchenko.chat.client;
+package com.github.alexivchenko.chat.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -11,7 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class Message {
-    private String text;
+public class User {
+    private String username;
 }

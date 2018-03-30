@@ -1,7 +1,6 @@
 package com.github.alexivchenko.chat.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,14 +16,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().disable()
+                .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers(HttpMethod.GET,"/api/channels/**").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/chat").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/api").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/stomp").permitAll()
-                .anyRequest().denyAll();
+                .authorizeRequests().antMatchers("/api/**").permitAll();
     }
 }

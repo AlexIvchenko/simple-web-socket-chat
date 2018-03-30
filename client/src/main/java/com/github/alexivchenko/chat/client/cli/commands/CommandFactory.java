@@ -7,4 +7,6 @@ public interface CommandFactory {
     Command build(String str);
 
     boolean supports(String str);
+
+    boolean isAvailable();
 }

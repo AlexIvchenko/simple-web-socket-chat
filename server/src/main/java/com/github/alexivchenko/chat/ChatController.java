@@ -15,9 +15,21 @@ import java.security.Principal;
 @Slf4j
 @Controller
 public class ChatController {
-    @MessageMapping("/chat")
-    @SendTo("/topic/messages")
-    public OutputMessage chat(@Payload InputMessage input, Principal principal) {
+    @MessageMapping("/chat/channels/{channel}")
+    @SendTo("/topic/channels/{channel}/messages")
+    public OutputMessage channel(@Payload InputMessage input, Principal principal) {
+        log.info("chat, message: {}", input);
+        JwtAuthenticationToken auth = (JwtAuthenticationToken) principal;
+        log.info(input.toString());
+        OutputMessage output = new OutputMessage();
+        output.setSender(auth.getUsername());
+        output.setText(input.getText());
+        return output;
+    }
+
+    @MessageMapping("/chat/direct/{username}")
+    @SendTo("/topic/direct/{username}/messages")
+    public OutputMessage dierect(@Payload InputMessage input, Principal principal) {
         log.info("chat, message: {}", input);
         JwtAuthenticationToken auth = (JwtAuthenticationToken) principal;
         log.info(input.toString());

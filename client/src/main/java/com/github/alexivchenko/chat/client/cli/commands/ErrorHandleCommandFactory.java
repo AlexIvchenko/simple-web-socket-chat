@@ -21,4 +21,9 @@ public class ErrorHandleCommandFactory implements CommandFactory {
     public boolean supports(String str) {
         return delegate.supports(str);
     }
+
+    @Override
+    public boolean isAvailable() {
+        return delegate.isAvailable();
+    }
 }

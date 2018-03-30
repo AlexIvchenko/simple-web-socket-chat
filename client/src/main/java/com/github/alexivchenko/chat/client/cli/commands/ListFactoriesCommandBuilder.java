@@ -22,8 +22,10 @@ public class ListFactoriesCommandBuilder implements CommandBuilder {
     @Override
     public Command command(String str) {
         for (CommandFactory definition : factories) {
-            if (definition.supports(str)) {
-                return definition.build(str);
+            if (definition.isAvailable()) {
+                if (definition.supports(str)) {
+                    return definition.build(str);
+                }
             }
         }
         return fallback;

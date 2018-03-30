@@ -1,22 +1,19 @@
 package com.github.alexivchenko.chat.client.cli.commands;
 
-import com.github.alexivchenko.chat.client.Message;
-import com.github.alexivchenko.chat.client.cli.mvc.controller.api.Controller;
+import com.github.alexivchenko.chat.client.Channel;
+import com.github.alexivchenko.chat.client.User;
 
 /**
  * @author Alex Ivchenko
  */
-public class SendCommand implements Command {
-    private final Controller controller;
-    private final Message message;
-
-    public SendCommand(Controller controller, Message message) {
-        this.controller = controller;
-        this.message = message;
+public interface SendCommand extends Command {
+    static SendToUserCommand.MessageStageBuilder to(User user) {
+        return SendToUserCommand.builder()
+                .to(user);
     }
 
-    @Override
-    public void run() {
-        controller.send(message);
+    static SendToChannelCommand.MessageStageBuilder to(Channel channel) {
+        return SendToChannelCommand.builder()
+                .to(channel);
     }
 }
